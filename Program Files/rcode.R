@@ -41,9 +41,18 @@ data_eu <- data %>%
 # Truncate data and STL decomposition 
 
 data_eu %>% 
-  model(STL(i_cpi)) %>%
+  rename(CPI_Official = i_cpi) |> 
+  model(STL(CPI_Official)) %>%
   components(season_adjust) %>% 
-  autoplot()
+  autoplot() +
+  theme_minimal()
+
+data_eu %>% 
+  rename(CPI_Online = i_online) |> 
+  model(STL(CPI_Online)) %>%
+  components(season_adjust) %>% 
+  autoplot() +
+  theme_minimal()
 
 data_eusean <-data_eu %>% 
   model(STL(i_cpi)) %>%
@@ -69,8 +78,9 @@ data_euadj_online <- data_eu %>%
   model(STL(i_online)) %>%
   components() %>% 
   dplyr::select(season_adjust) %>%
-  filter(date >= yearmonth("2010 Sep"))%>% 
-  pivot_wider(names_from = Country,values_from = season_adjust)
+  filter(date >= yearmonth("2010 Sep")) %>% 
+  pivot_wider(names_from = Country,values_from = season_adjust) %>% 
+  dplyr::select(date,`.model`,UK,FRANCE,NETHERLANDS,IRELAND,ITALY,GREECE,GERMANY)
 
 
 
@@ -78,30 +88,43 @@ data_euadj_online <- data_eu %>%
 
 data_timeadj <- data_eu %>% 
   filter(date >= yearmonth("2010 Sep")) 
+
 nonseasonadj <- ggplot(data=data_timeadj, aes(x = date, y = i_cpi)) + 
   geom_line(aes(color = Country))+
-  labs(y="CPI Index", x = "Time")
+  labs(y="CPI Index", x = "Time") + 
+  theme_minimal()
+
 seasonadj <- ggplot(data=data_eusean, aes(x = date, y = season_adjust)) +
   geom_line(aes(color = Country))+
-  labs(y="Seasonal Adjusted", x = "Time")
+  labs(y="Seasonal Adjusted", x = "Time")+ 
+  theme_minimal()
 
 ggarrange(nonseasonadj, seasonadj, 
           ncol = 1, nrow = 2)
 
 onlinenon <- ggplot(data=data_timeadj, aes(x = date, y = i_online)) + 
   geom_line(aes(color = Country))+
-  labs(y="Online CPI Index", x = "Time")
+  labs(y="Online CPI Index", x = "Time")+ 
+  theme_minimal()
 
 onlineseasonadj <- ggplot(data=data_onlineadj, aes(x = date, y = season_adjust)) +
   geom_line(aes(color = Country))+
-  labs(y="Seasonal Adjusted", x = "Time")
+  labs(y="Seasonal Adjusted", x = "Time")+ 
+  theme_minimal()
 
 ggarrange(onlinenon, onlineseasonadj, 
           ncol = 1, nrow = 2)
 
+ggarrange(nonseasonadj, onlinenon, 
+          ncol = 1, nrow = 2)
+
+
+
 # Lag Selection ICs
-yt <- data_euadj[3:9] 
-yt <-  yt[, c(7,1,6,4,5,3,2)]
+yt <- data_euadj |>  dplyr::select(UK,FRANCE,NETHERLANDS,IRELAND,ITALY,GREECE,GERMANY)
+
+yt <- yt[,1:7]
+
 vars::VARselect(yt)$criteria
 
 ggpairs(yt) 
@@ -124,8 +147,14 @@ print(xtable(adf_2, type = "latex"), file = "adf2.tex")
 # ordering: UK, France, Netherlands, Ireland,Italy,Greece, Germany
 
 reducevar <- VAR(yt,p=1,type = "none")
-yot <- data_euadj_online[3:9]
+
+yot <- data_euadj_online |> 
+  dplyr::select(UK,FRANCE,NETHERLANDS,IRELAND,ITALY,GREECE,GERMANY)
+
+yot <- yot[,1:7]
+
 #yot <- yot[, c(7,1,6,4,5,3,2)]
+
 reducevaron <- VAR(yot,p=1,type = "none")
 
 # FEVD and Spillover 
@@ -137,6 +166,7 @@ fevd_off <- array(NA,dim = c(7,7,12))
 for (i in 1:12) {
   fevd_off[,,i] <- rbind(fevd_official$UK[i,],fevd_official$FRANCE[i,],fevd_official$NETHERLANDS[i,],fevd_official$IRELAND[i,],fevd_official$ITALY[i,],fevd_official$GREECE[i,],fevd_official$GERMANY[i,])
 }
+
 
 spillover_official <- c(rep(NA,12))
 
@@ -150,6 +180,8 @@ fevd_on <- array(NA,dim = c(7,7,12))
 for (i in 1:12) {
   fevd_on[,,i] <- rbind(fevd_online$UK[i,],fevd_online$FRANCE[i,],fevd_online$NETHERLANDS[i,],fevd_online$IRELAND[i,],fevd_online$ITALY[i,],fevd_online$GREECE[i,],fevd_online$GERMANY[i,])
 }
+
+
 
 spillover_online <- c(rep(NA,12))
 
@@ -170,6 +202,12 @@ tibble(
   geom_text(aes(label=Spillover),hjust=0, vjust=0)+ 
   theme_bw() +
   scale_x_discrete(limits=c("1","2","3","4","5","6","7","8","9","10","11","12"))
+
+
+saveRDS(fevd_off,file = "data/official_fevd.rds")
+
+saveRDS(fevd_on,file = "data/online_fevd.rds")
+
 
 # Estimating another set of VAR 1 using different cholesky ordering 
 ## UK, Ireland, France, Netherlands, Germany, Greece, Italy 
