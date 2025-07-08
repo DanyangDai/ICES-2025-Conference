@@ -1,17 +1,19 @@
 ---
-title: "Offcial and Online Infation Spillover analysis of the Euro Area"
+title: "Official and Online Infation Spillover analysis of the Euro Area"
 author:
-  - Danyang Dai, The University of Queensland
+  - Danyang Dai
+  - The University of Queensland
 format: 
   revealjs:
     multiplex: true
-    footer: "[]()"
+    footer: "ICES2025HRB"
     theme: ["pp.scss"]
     slide-number: c/t
     incremental: true
     title-slide-attributes:
       data-background-image: image/Britain.jpg
       data-background-size: cover  
+      data-background-opacity: "0.5"
 editor: visual
 ---
 
@@ -36,11 +38,11 @@ fevd_on <- readRDS("data/online_fevd.rds")
 ::::: columns
 ::: column
 
--   Inflation is directly linked to the determination of domestic interest rate and maintaining purchasing power.
+-   Inflation is directly linked to the determination of the domestic interest rate and maintaining purchasing power.
 
--  Central bank: Controlling the economic activity and performance
+-  Central bank: Controlling economic activity and performance.
 
--  Globalisation and Trump 
+-  Globalisation
 
 -  National macroeconomic development is highly reliant on international changes.
 
@@ -58,16 +60,15 @@ fevd_on <- readRDS("data/online_fevd.rds")
 :::
 
 
-
 ## Background - Volatility Spillover
 
--  Provide "early warning systems" for emergent crises and track the progress of existing crises. 
+-  Provides "early warning systems" for emergent crises and tracks the progress of existing crises.
 
-- Allows for network analysis: how market and countries' economy are connected. 
+- Allows for network analysis: how markets and countries' economies are connected.
 
--  Diebold and Yilmaz (2009) introduced a volatility spillover measure based on Forecast Error Variance Decompositions (FEVD) from Vector Autoregressions (VARs) Models. 
+-  Diebold and Yilmaz (2009) introduced a volatility spillover measure based on Forecast Error Variance Decompositions (FEVD) from Vector Autoregressions (VARs) Models.
 
--  The DY method can be used for measuring the spillovers in returns or return volatilities. 
+-  The DY method can be used for measuring the spillovers in returns or return volatilities.
 
 - It can also be used for measuring the co-movements between countries' inflation.
 
@@ -81,11 +82,11 @@ fevd_on <- readRDS("data/online_fevd.rds")
 ## Background - Inflation Co-movements
 
 
-- The inflation spillover, or the co-movement, has been studied by other researchers. 
+- The inflation spillover, or the co-movement, has been studied by other researchers.
 
-- Kang et al. (2019) using the Harmonised Index of Consumer Prices (HICP) consumer price indexes (CPIs) from 9 European countries found the transmission of economic information across inflation levels.
+- Kang et al. (2019), using the Harmonised Index of Consumer Prices (HICP) consumer price indexes (CPIs) from 9 European countries, found the transmission of economic information across inflation levels.
 
-- Among the 9 countries, including France, Germany Spain, Italy, the UK, Sweden, Swizerland Denmark and Norway, **France and Germany** were net transmitter of spillovers.
+- Among the 9 countries, including France, Germany, Spain, Italy, the UK, Sweden, Switzerland, Denmark and Norway, **France and Germany** were net transmitters of spillovers.
 
 - **Italy and the UK** were net recipients of spillovers.
 
@@ -95,36 +96,36 @@ fevd_on <- readRDS("data/online_fevd.rds")
 
 :::
 
-## Backgroun - Official vs Online Price Index
+## Background - Official vs Online Price Index
 
--  With the growth of online shopping, the Billion Prices Project was initiated to experiment with online price indexes by Cavallo (2017). 
+-  With the growth of online shopping, the Billion Prices Project was initiated to experiment with online price indexes by Cavallo (2017).
 
-- The unprecedented amount of micro-level prices available online was collected to form an aggregated online price index. 
+- The unprecedented amount of micro-level prices available online was collected to form an aggregated online price index.
 
 - Online prices were collected at higher frequency.
 
-- Online prices are transparent. 
+- Online prices are transparent.
 
-## Aim 
+## Aim
 
-- This research aim to evaluate the speed and magnitude of the spillover between the official inflation vs the online inflation. 
+- This research aims to evaluate the speed and magnitude of the spillover between the official inflation and the online inflation.
 
-## Data 
-
-
-- The data used in this project were from Aparicio and Bertolotto (2020) where they used the online prices for forecasting inflation. 
+## Data
 
 
-- Countries included in this analysis: Australia, Canada, France, Germany, Greece, Ireland, Italy, the Netherlands, the UK, and the US. 
-
-- Range of the data covered from July 2008 to September 2020.
-
-- The official CPIs were collected from the National Statistics Office. 
-
-- The Online CPIs were from the Billion Prices Project. 
+- The data used in this project were from Aparicio and Bertolotto (2020), where they used online prices for forecasting inflation.
 
 
-## Data - Offical Inflation and Online Inflation 
+- Countries included in this analysis: Australia, Canada, France, Germany, Greece, Ireland, Italy, the Netherlands, the UK, and the US.
+
+- The range of the data covered from July 2008 to September 2020.
+
+- The official CPIs were collected from the National Statistics Office.
+
+- The Online CPIs were from the Billion Prices Project.
+
+
+## Data - Official Inflation and Online Inflation
 
 
 ![](image/data_01.jpg)
@@ -136,7 +137,7 @@ fevd_on <- readRDS("data/online_fevd.rds")
 
 
 
-## Method: Seasonal Trend Loess Decomposition - Offcial CPI
+## Method: Seasonal Trend Loess Decomposition - Official CPI
 
 
 ![](image/data_official_02.jpg)
@@ -147,63 +148,63 @@ fevd_on <- readRDS("data/online_fevd.rds")
 
 ## Method - Vector Autoregressive Model (VAR)
 
-The spillover measurement is based on forecast error variance decomposition (FEVD) from vector autoregressive (VAR) model (Diebold and Yilmaz,2009).
+The spillover measurement is based on forecast error variance decomposition (FEVD) from a vector autoregressive (VAR) model (Diebold and Yilmaz, 2009).
 
-For this study, VAR(1) was selected based on information selection criterion.
+For this study, VAR(1) was selected based on information selection criteria.
 
 The VAR(1) model was estimated as shown:
 
 
 $$
-Y_{t} = \mu + A_{1}Y_{t-1} + e_{t} 
+Y_{t} = \mu + A_{1}Y_{t-1} + e_{t}
 $$
-where $Y_{t}$ is a vector containing all the inflation indices from the selected counties. $A_{1}$ is a 7 by 7 matrix. 
+where $Y_{t}$ is a vector containing all the inflation indices from the selected countries. $A_{1}$ is a 7 by 7 matrix.
 
-## Method - Vector Moving Average 
+## Method - Vector Moving Average
 
-Re-write the equation into moving average representation:
+Re-write the equation into a moving average representation:
 
 $$
 Y_{t} = (I - A_{1})^{-1}\mu + \Phi(L)\varepsilon_{t}
 $$
 
-where $\Phi(L) = (I- A_{1}L)^{-1}Q_{t}^{-1}$, $\varepsilon_{t} = Q_{t}e_{t}$, $E(\varepsilon_{t}\varepsilon_{t}') = I$, $Q_{t}^{-1}Q_{t} = \sum e_{t}$.  
+where $\Phi(L) = (I- A_{1}L)^{-1}Q_{t}^{-1}$, $\varepsilon_{t} = Q_{t}e_{t}$, $E(\varepsilon_{t}\varepsilon_{t}') = I$, $Q_{t}^{-1}Q_{t} = \sum e_{t}$.
 
-$Q_{t}^{-1}$ is a lower triangular matrix from the Cholesky factorisation of the variance covariance matrix of $\varepsilon_{t}$.
+$Q_{t}^{-1}$ is a lower triangular matrix from the Cholesky factorisation of the variance-covariance matrix of $\varepsilon_{t}$.
 
 
-## Method - choice of Cholesky ordering 
+## Method - choice of Cholesky ordering
 
 - With Cholesky factorisation, the order of the variables in the VAR system might result in
 different variance decompositions (Diebold and Yilmaz, 2012).
 
-- Aggarwal and Goodell (2010) suggests that one possible way of ranking the national  financial influence is to use the ratio of domestic stock market capitalisation
-to GDP over domestic assets of deposit many to bank capitalisation to GDP.
+- Aggarwal and Goodell (2010) suggest that one possible way of ranking the national financial influence is to use the ratio of domestic stock market capitalisation
+to GDP over domestic assets of deposit money to bank capitalisation to GDP.
 
-- Rank chosen to be: the UK, France, Netherlands, Ireland, Italy, Greece and Germany. 
+- Rank chosen to be: the UK, France, Netherlands, Ireland, Italy, Greece and Germany.
 
 ## Method - FEVD
 
-Forecast Error Variance Deposition was calculated by feeding a shock to the UK at one, four and twelve months.
+Forecast Error Variance Decomposition was calculated by feeding a shock to the UK at one, four and twelve months.
 
-The individual shock contribution is defined as the contribution of the $i^{th}$ to the mean square forecast error (MSFE) of the $n^{th}$ variable $y_{n, t+h} h$ period ahead is:
+The individual shock contribution is defined as the contribution of the $i^{th}$ to the mean square forecast error (MSFE) of the $n^{th}$ variable $y_{n, t+h}$ $h$ periods ahead:
 
 $$
 \frac{MSFE^{n}_{i}(h)}{\sum^{N}_{i=1}MSFE^{n}_{i}(h)}
 $$
 
-Because the shocks to each variable are othogonalised, the sum of the contribution to the variance of the forecast error is equal to 1. 
+Because the shocks to each variable are orthogonalised, the sum of the contributions to the variance of the forecast error is equal to 1.
 
-## Method - DY Spillover 
+## Method - DY Spillover
 
 
-The DY spillover is given:
+The DY spillover is given by:
 
 $$
 Spillover = \frac{\sum^{N}_{i=1}\sum^{N}_{j=1}Var(\mu_{t+h}|t)_{ij}}{100N}
 $$
 
-where $N$ is equal to s7 as there are 7 countries in the system. 
+where $N$ is equal to 7 as there are 7 countries in the system.
 
 
 ::: notes
@@ -235,26 +236,26 @@ colnames(fevd_on_1) <- col_name
 rownames(fevd_on_1) <- row_name
 
 
-fevd_off_1 |> kable(caption = "Official Inflation FEVD - 1 month") |> 
+fevd_off_1 |> kable(caption = "Official Inflation FEVD - 1 month") |>
   kableExtra::kable_styling(font_size = 14)
 ```
 
-::: 
+:::
 
 ::: column
 
 
 ```{r}
-fevd_on_1 |> kable(caption = "Online Inflation FEVD - 1 month") |> 
+fevd_on_1 |> kable(caption = "Online Inflation FEVD - 1 month") |>
   kableExtra::kable_styling(font_size = 14)
 ```
-::: 
+:::
 
-::::: 
+:::::
 
-- For Germany, one-period after the shocked fed to the system, only 28.7% of the forecast error variance was explained by itself.
+- For Germany, one period after the shock is fed to the system, only 28.7% of the forecast error variance was explained by itself.
 
-- Compared to the official inflation, inflation index conducted with online prices were less influenced by other countries. 
+- Compared to the official inflation, the inflation index constructed with online prices was less influenced by other countries.
 
 
 ## Results - FEVD after 4 months
@@ -278,25 +279,25 @@ colnames(fevd_on_4) <- col_name
 rownames(fevd_on_4) <- row_name
 
 
-fevd_off_4 |> kable(caption = "Official Inflation FEVD - 4 months") |> 
+fevd_off_4 |> kable(caption = "Official Inflation FEVD - 4 months") |>
   kableExtra::kable_styling(font_size = 14)
 ```
 
-::: 
+:::
 
 ::: column
 
 
 ```{r}
-fevd_on_4 |> kable(caption = "Online Inflation FEVD - 4 months") |> 
+fevd_on_4 |> kable(caption = "Online Inflation FEVD - 4 months") |>
   kableExtra::kable_styling(font_size = 14)
 ```
-::: 
+:::
 
-::::: 
+:::::
 
 
-- The UK's official inflation is still largel self-determined. 
+- The UK's official inflation is still largely self-determined.
 
 - For the online inflation index, the UK was less self-determined compared to the official inflation index after 4 months.
 
@@ -321,29 +322,29 @@ colnames(fevd_on_12) <- col_name
 rownames(fevd_on_12) <- row_name
 
 
-fevd_off_12 |> kable(caption = "Official Inflation FEVD - 12 months") |> 
+fevd_off_12 |> kable(caption = "Official Inflation FEVD - 12 months") |>
   kableExtra::kable_styling(font_size = 14)
 ```
 
-::: 
+:::
 
 ::: column
 
 
 ```{r}
-fevd_on_12 |> kable(caption = "Online Inflation FEVD - 12 months") |> 
+fevd_on_12 |> kable(caption = "Online Inflation FEVD - 12 months") |>
   kableExtra::kable_styling(font_size = 14)
 ```
-::: 
+:::
 
-::::: 
+:::::
 
 - For both official and online inflation, Germany is largely determined
 by other euro area countries and is primarily determined by the UK.
 
 - This unique relationship is explained by the equilibrium-adjusting behaviour between the UK and Germany explored by Canarella et al. (2014) in an analysis of their interest rates.
 
-## Results - Spillover 
+## Results - Spillover
 
 
 ![](image/spillover_01.jpg)
@@ -352,16 +353,16 @@ by other euro area countries and is primarily determined by the UK.
 
 - The official and online inflation spillover share the same shape.
 
-- The official inflation has higher magnitude in transmitting volatility than online inflation indices.
+- The official inflation has a higher magnitude in transmitting volatility than online inflation indices.
 
 - Where online inflation is not an official economic measurement index,
 policy makers and researchers do not use online inflation as a price benchmark in decision making.
 
-- Online prices are collected from a relatively small set of retailers and product categories than the comprehensive consumer prices survey conducted by the government (Cavallo and Rigobon, 2016).
+- Online prices are collected from a relatively small set of retailers and product categories compared to the comprehensive consumer prices survey conducted by the government (Cavallo and Rigobon, 2016).
 
-## Limtation 
+## Limitation
 
-- Diebold and Yilmaz (2012) suggests that the Cholesky ordering used in this study may have an impact on the variance decomposition. 
+- Diebold and Yilmaz (2012) suggest that the Cholesky ordering used in this study may have an impact on the variance decomposition.
 
 - Thus, another set of Cholesky ordering is chosen to check for robustness. The second set of Cholesky ordering is based on the geospatial relationships between the countries.
 
@@ -386,16 +387,15 @@ inflation cycle in Europe? Inflation cycle and spillover influence among Eurozon
 
 - Github handle: @DanyangDai
 
-- Acknowledgement: this work was done under the supervision of Professor Kalvinder Shiel and Dr.Andrew Clarke as part of Master of Applied Econometics degree at the University of Melbourne. 
+- Acknowledgement: this work was done under the supervision of Professor Kalvinder Shiel and Dr. Andrew Clarke as part of the Master of Applied Econometrics degree at the University of Melbourne.
 
-- This trip is supported by the University of Queensland. 
+- This trip is supported by the University of Queensland.
 
 
 
 ::: notes
 
 :::
-
 
 
 
